@@ -1,0 +1,147 @@
+
+<style>
+    body {
+        margin: 0;
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .brand-box {
+        font-family: "Inter", sans-serif;
+        padding: 0px 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-bottom: 16px;
+    }
+
+    .brand-box .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 230px;
+    }
+
+    .brand-box .header h2 {
+        margin: 0;
+        font-weight: 500;
+        color: rgba(32, 32, 32, 1);
+        font-size: 12px;
+    }
+
+    .brand-box .header button {
+        width: 40px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        background: #fff;
+        color: rgba(32, 32, 32, 1);
+        border-radius: 6px;
+        border: 1px solid rgba(32, 32, 32, 0.2);
+        cursor: pointer;
+    }
+
+    .brand-box .header button:hover {
+        border: 1px solid rgba(32, 32, 32, 0.4);
+    }
+
+    .brand-box .color-list {
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+        align-items: center;
+        margin-top: 8px;
+        width: 228px;
+        height: 44px;
+        border: 1px solid rgba(32, 32, 32, 0.1);
+        border-radius: 6px;
+        padding-left: 8px;
+        box-sizing: border-box;
+    }
+
+    .brand-box .color-list .color {
+        height: 24px;
+        min-width: 24px;
+        width: 24px;
+        border-radius: 100%;
+        margin-right: 7px;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+</style>
+<div class="body_container">
+
+</div>
+<script>
+
+    var colors = [{
+        "brand_name": "即时设计",
+        "colors": ["#CE5554", "#E45C5E", "#FF5354", "#4EAA70", "#58BC7C", "#35C773", "#58D67D", "#458BF2", "#4596FF", "#64A2FA", "#4F80FE", "#7290FF", "#EF853E", "#FE954F", "#FF9C45", "#FFB356", "#FF9233", "#8153F5", "#9066FF", "#9B70FE", "#A27CFC"]
+    }
+    ];
+
+    for (let i = 0; i < colors.length; i++) {
+        //创建 插件内容 的DOM结构
+        let brand = document.createElement('div');
+        brand.classList.add('brand-box');
+
+        //创建div
+        let header = document.createElement('div');
+        header.classList.add('header')
+
+        //创建标签
+        let brandName = document.createElement('h2');
+        brandName.innerHTML = colors[i].brand_name;
+
+        //创建按钮
+        let addButton = document.createElement('button');
+        addButton.innerHTML = '添加';
+
+
+        //添加点击事件
+        addButton.onclick = () => {
+            let colorsList = colors[i].colors
+            let name = colors[i].brand_name
+            //插件ui 向 插件主代码 发送信息
+            parent.postMessage({
+                pluginMessage: {
+                    type: 'createLayer',
+                    colorsList,
+                    name
+                }
+            }, '*')
+        }
+
+
+        header.appendChild(brandName);
+        header.appendChild(addButton);
+        brand.appendChild(header);
+
+        //遍历生成颜色DOM
+        let brandColors = document.createElement('div');
+        brandColors.classList.add('color-list');
+        var j;
+        for (j = 0; j < colors[i].colors.length; ++j) {
+            let color = document.createElement('div');
+            color.classList.add('color');
+            color.style.backgroundColor = colors[i].colors[j];
+            brandColors.appendChild(color);
+        }
+        brand.appendChild(brandColors);
+
+        //生成的Dom结构添加到Body
+        let bodyEl = document.querySelector('.body_container');
+        bodyEl.appendChild(brand);
+    }
+
+    
+
+</script>
