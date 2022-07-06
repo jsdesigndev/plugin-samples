@@ -30,7 +30,7 @@ $ npm run build
 添加色卡至画布视区中心  
 - 展示如何调用 viewport API 将创建的节点定位在画布中央
 - 展示使用 scrollAndZoomIntoView 方法将创建节点居中后以最佳缩放比展示 
-- 展示使用 resizeWithoutConstraints 方法设置画板的宽高，子级图层不会被等比缩放
+- 展示使用 resizeWithoutConstraints 方法设置画板宽高，子级图层不跟随等比缩放
 
 <img src="https://user-images.githubusercontent.com/108673278/177479987-7ebe5026-783e-4eb1-b06e-7799d23dd065.png" width="500px">
 
@@ -62,7 +62,7 @@ $ npm run build
 ### 图层拉伸
 将子级图层拉伸至父级大小
 - 展示使用 jsDesign.command 获取描述文件中 menu 所配置的 command 属性值
-- 通过 resize 的方法改变宽高，其子级元素将会被等比缩放
+- 展示通过 resize 的方法改变宽高，其子级元素同步会等比缩放
 
 <img src="https://user-images.githubusercontent.com/108673278/177304502-c5fd00d7-9e96-4a70-8c20-6d6fd28db73b.png" width="400px">
 
