@@ -1,0 +1,14 @@
+{
+  "name": "插件示例-输入参数创建图形",
+  "id": "1125970503588853598",
+  "api": "1.0.0",
+  "main": "code.js",
+  "parameters": [
+    {
+      "name": "输入想要的图形",
+      "key": "layers",
+      "description": "请输入 “矩形”、“圆”、“三角形”、“平行四边形”、“星形”",
+      "allowFreeform": true
+    }
+  ]
+}
