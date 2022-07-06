@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+    }
+
+    #container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+    }
+
+    .desc {
+        font-size: 12px;
+        margin: 20px 0 0 15px;
+    }
+
+    .icon_container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 20px 10px;
+
+    }
+
+    .iconItem {
+        cursor: pointer;
+        margin: 6px;
+    }
+</style>
+
+<body>
+    <div id="container">
+        <span class="desc">拖拽或点击添加 icon 至画布</span>
+        <div class="icon_container">
+
+        </div>
+    </div>
+    <script>
+
+        let dataMap = [{
+            name: 'icon-1',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon">
+            <rect width="256" height="256" fill="none"></rect>
+            <polyline points="24 128 56 128 96 40 160 208 200 128 232 128" fill="none" stroke="black"
+                stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline>
+        </svg>`
+        }, {
+            name: 'icon-1',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><circle cx="136" cy="112" r="32" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></circle><line x1="32" y1="108" x2="56" y2="108" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><line x1="32" y1="68" x2="56" y2="68" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><line x1="32" y1="148" x2="56" y2="148" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><line x1="32" y1="188" x2="56" y2="188" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><path d="M88,168a60,60,0,0,1,96,0" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path><rect x="40" y="48" width="192" height="160" rx="8" transform="translate(264 -8) rotate(90)" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></rect></svg>`
+        }, {
+            name: 'icon-2',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><path d="M128,216,88,232V200l16-16V152L24,168V136l80-40V48a24,24,0,0,1,48,0V96l80,40v32l-80-16v32L168,200v32Z" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>`
+        }, {
+            name: 'icon-3',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><line x1="72" y1="216" x2="216" y2="216" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><path d="M26.8,80H44l20,24H96L83.5,66.5A8,8,0,0,1,91.1,56H108l44,48h56a32,32,0,0,1,32,32v24H63.8a32,32,0,0,1-30.6-22.8L19.1,90.3A8,8,0,0,1,26.8,80Z" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>`
+        }, {
+            name: 'icon-4',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><line x1="96" y1="216" x2="240" y2="216" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><path d="M24,103.7V51.1a8,8,0,0,1,10.5-7.6L48,48,64,78,96,88V51.1a8,8,0,0,1,10.5-7.6L120,48l32,56,48.6,13.5A31.9,31.9,0,0,1,224,148.3V184L47.4,134.5A31.9,31.9,0,0,1,24,103.7Z" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>`
+        }, {
+            name: 'icon-5',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><line x1="24" y1="216" x2="168" y2="216" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><path d="M16.9,140.4l37.7,35.3a32,32,0,0,0,38,4.3L244,92,225.4,69.2a32,32,0,0,0-41-7.3L140,88,80,68,63.5,75.1a8,8,0,0,0-2.2,13.3L92,116,64,132,36,120l-16.8,7.2A8,8,0,0,0,16.9,140.4Z" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>`
+        }, {
+            name: 'icon-6',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><path d="M209.5,80.4,175.9,112l32,88-24,24-47.8-70-24.2,22v24l-24,24L73.7,182.1,31.9,168l24-24h24l24-24-72-48,24-24,88,32,31.7-33.5-.7.5a24,24,0,0,1,34,34Z" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>`
+        }, {
+            name: 'icon-7',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="120" r="24" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></circle><path d="M130.9,224h-5.8a16,16,0,0,1-15.7-12.9l-9.6-48A16,16,0,0,1,115.5,144h25a16,16,0,0,1,15.7,19.1l-9.6,48A16,16,0,0,1,130.9,224Z" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path><path d="M68.3,151.2a64,64,0,1,1,119.4,0" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path><path d="M76.4,208.9a96,96,0,1,1,103.2,0" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>`
+        }, {
+            name: 'icon-8',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><rect x="24" y="56" width="208" height="40" rx="8" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></rect><path d="M216,96v96a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V96" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path><line x1="104" y1="136" x2="152" y2="136" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line></svg>`
+        }, {
+            name: 'icon-9',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><path d="M208,216H48a8,8,0,0,1-8-8V72L56,40H200l16,32V208A8,8,0,0,1,208,216Z" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path><polyline points="94.1 150.1 128 184 161.9 150.1" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline><line x1="128" y1="104" x2="128" y2="184" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><line x1="40" y1="72" x2="216" y2="72" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line></svg>`
+        }, {
+            name: 'icon-10',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><rect x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></rect><polyline points="94.1 118.1 128 152 161.9 118.1" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline><line x1="128" y1="72" x2="128" y2="152" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><path d="M40,160H76.7a7.9,7.9,0,0,1,5.6,2.3l19.4,19.4a7.9,7.9,0,0,0,5.6,2.3h41.4a7.9,7.9,0,0,0,5.6-2.3l19.4-19.4a7.9,7.9,0,0,1,5.6-2.3H216" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>`
+        }, {
+            name: 'icon-11',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><line x1="80" y1="136" x2="176" y2="136" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line><path d="M48,96V72A32,32,0,0,1,80,40h96a32,32,0,0,1,32,32V96" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path><path d="M80,168V128a32,32,0,1,0-32,32h0v40a8,8,0,0,0,8,8H200a8,8,0,0,0,8-8V160h0a32,32,0,1,0-32-32v40" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>`
+        }, {
+            name: 'icon-12',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><path d="M138.1,32.5A32,32,0,0,1,168,12" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path><path d="M218.5,162.9C205.9,193.7,183.1,216,164,216H92c-28,0-64-48-64-100A60,60,0,0,1,128,71.3h0a60,60,0,0,1,87.2,7.6h0a48,48,0,0,0,3.3,84Z" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>`
+        }, {
+            name: 'icon-13',
+            content: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" viewBox="0 0 256 256" class="icon"><rect width="256" height="256" fill="none"></rect><polygon points="128 232 208 192 224 72 128 32 32 72 48 192 128 232" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polygon><polyline points="164 160 128 88 92 160" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></polyline><line x1="102.7" y1="138.7" x2="153.3" y2="138.7" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></line></svg>`
+        }]
+
+
+        let dragStartRef = {}
+        const icon_container = document.getElementsByClassName('icon_container')[0];
+
+        dataMap.forEach(item => {
+            let icon = document.createElement('div');
+            icon.classList.add('iconItem');
+            icon.innerHTML = item.content;
+            icon.addEventListener('click', () => {
+                clickEvent(item.name, item.content)
+            })
+            icon.draggable = true;
+            icon.ondragstart = (e) => {
+                dropStart(e);
+            }
+            icon.ondragend = (e) => {
+                dropEnd(e, item.name);
+            }
+            icon_container.appendChild(icon)
+
+        })
+
+        function clickEvent(name, svg) {
+            //插件ui 向 主代码 发送信息 并携带相关数据
+            parent.postMessage(
+                { pluginMessage: { type: "insert", payload: { name, svg } } },
+                "*"
+            );
+        }
+        function dropStart(e) {
+            //H5 拖拽 相关 设置
+            const { offsetX, offsetY } = e;
+            e.dataTransfer.effectAllowed = "copyMove";
+            e.dataTransfer.setData("text/plain", e.currentTarget.innerHTML);
+            dragStartRef = { x: offsetX, y: offsetY };
+        }
+        function dropEnd(e) {
+            const { clientX, clientY, view } = e;
+            if (view.length === 0) return;
+
+            const payload = {
+                name,
+                svg: e.currentTarget.innerHTML,
+                dropPosition: { clientX, clientY },
+                windowSize: {
+                    width: window.outerWidth,
+                    height: window.outerHeight,
+                },
+                offset: dragStartRef,
+            };
+            //插件ui 向 主代码 发送信息 并携带相关数据
+            parent.postMessage({ pluginMessage: { type: "drop", payload } }, "*");
+        }
+    </script>
+
+</body>
+
+</html>
