@@ -68,7 +68,7 @@ $ npm run build
 
 ## 示例插件：输入参数运行的插件 (jsDesign.parameters)
 - 展示用户在插件中输入参数时，按键触发 input 事件时如何通过调用 parameters API 来进行响应
-- 展示如何使用 vctorPath API 多种形状图形  
+- 展示如何使用 vctorPath API 创建多种形状图形  
 
 <img src="https://user-images.githubusercontent.com/108673278/177486652-74c13a5a-6698-49ee-ad0d-780873861d93.png" width="400px">
 
