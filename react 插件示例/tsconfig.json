@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "jsx": "react",
+    "noEmit": false,  // Emit handled by webpack.
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@jsdesigndeveloper"
+    ]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}

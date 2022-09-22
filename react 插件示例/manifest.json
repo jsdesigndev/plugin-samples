@@ -1,0 +1,7 @@
+{
+  "name": "React 插件示例",
+  "id": "react-demo3213edsa",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html"
+}
